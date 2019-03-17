@@ -15,29 +15,39 @@ public class Network {
     private List<Normal> normalDevices = new ArrayList<>();
 
 
-    public void simulateYear(int numberOfYears){
-
-        for (int i = 0; i < numberOfYears; i++) {
-
-            for (Smart smart: smartDevices
-                 ) {
-                smart.calculateBatteryLife();
-                
-            }
-
-            for (Connected connected: connectedDevices
-                 ) {
-                connected.calculateBatteryLife();
-
-            }
-
-            for (Normal normal: normalDevices
-                 ) {
-                normal.calculateBatteryLife();
-
-            }
-        }
-
+    public List<Connected> getConnectedDevices(){
+        return connectedDevices;
     }
 
+
+    public List<Smart> getSmartDevices(){
+        return smartDevices;
+    }
+
+
+    public List<Normal> getNormalDevices(){
+        return normalDevices;
+    }
+
+
+    public void addDevice(Device device){
+        if (device instanceof Normal){
+            normalDevices.add((Normal) device);
+        }
+        else if (device instanceof Smart){
+            smartDevices.add((Smart) device);
+        }
+        else if (device instanceof Connected){
+            connectedDevices.add((Connected) device);
+        }
+     }
+
+
+
+    private void updateConnectedDevices(){
+        for(Connected connectedDevice : connectedDevices){
+            connectedDevice.updateConnectedDevices();
+
+        }
+    }
 }
